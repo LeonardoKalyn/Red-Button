@@ -25,7 +25,7 @@ Autores
 -------------
 Para trabalhar no projeto localmente, vá para uma pasta que deseja colocar o projeto e abra um Terminal UNIX nessa pasta (Git Bash no Windows), digitando o seguinte comando:
 
-* `git clone link`
+* `git clone https://github.com/LeonardoKalyn/Red-Button.git`
 
 * Após terminar de trabalhar algo no projeto, digite (**Obs.:** Se foram criados novos arquivos, deve-se adicioná-los ao repositório local com o comando `git add -a`, depois disso digite):
 
@@ -40,4 +40,10 @@ Bug tracker
 -----------
 Encontrou um bug? Quer sugerir um novo recurso ou melhoria? Informe-nos aqui no GitHub!
 
-[Issues - LeonardoKalyn/Red Buton]()
+[Issues - LeonardoKalyn/Red Buton](https://github.com/LeonardoKalyn/Red-Button/issues)
+
+Pull Request
+------------
+*Até a conclusão deste trabalho, Pull Requests não serão aceitos. Entretanto, sugestões de mudanças podem ser enviadas para os e-mails dos autores*
+
+
