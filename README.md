@@ -1,4 +1,4 @@
-![redButton_icone](./Logo/icon name left.gif)
+![redButton_icone](https://github.com/LeonardoKalyn/Red-Button/blob/master/Recursos/Logo/icon%20name%20left.gif)
 =================================================================
 
 # Red-Button
