@@ -2,7 +2,7 @@
 =================================================================
 
 # Red-Button
-Projeto de Software apresentado como trabalho da disciplia "PRÁTICA DE ENGENHARIA DE SOFTWARE" do 7º período do semestre 2016/1 do curso de Engenharia de Software da Universidade Federal de Goiás.
+Projeto de Software apresentado como trabalho da disciplina "PRÁTICA DE ENGENHARIA DE SOFTWARE" do 7º período do semestre 2016/1 do curso de Engenharia de Software da Universidade Federal de Goiás.
 
 Descrição
 ---------
