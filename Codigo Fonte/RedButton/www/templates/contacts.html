@@ -1,0 +1,74 @@
+<ion-view view-title="Contacts" class="padding">
+  <ion-content>
+    <div class="bar bar-header bar-assertive">
+      <button class="button button-icon icon ion-navicon light" ng-click="sidemenuToggle()"></button>
+      <h1 class="title">Red Button</h1>
+      <button class="button button-icon icon ion-plus-circled light" ng-click="addContact()"></button>
+    </div>
+    <div class="bar bar-subheader bar-stable">
+      <h2 class="title">Contatos de Emergência</h2>
+    </div>
+    <div style="padding-top: 85px;">
+      <h4 class="center-align" ng-if="contacts.length === 0">Cadastre contatos para emergência.</h4>
+      <ul class="list">
+        <li ng-repeat="contact in contacts track by $index" class="item">
+          <div class="row row-center">
+            <div class="col col-25">
+              <h1>
+                <i class="ion-person"></i>
+              </h1>
+            </div>
+            <div class="col col-75">
+              <div class="row row-center">
+                <div class="col col-80">
+                  {{contact.name}} - {{contact.link}}
+                  <br>
+                  {{contact.number}}
+                </div>
+                <div class="col col-20">
+                  <button class="button button-icon icon" ng-click="startEdit($index)">
+                    <i class="ion-edit"></i>
+                  </button>
+                  <button class="button button-icon icon" ng-click="startDelete($index)">
+                    <i class="ion-trash-b"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <script id="contact-modal.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar>
+          <h1 ng-if="!editing" class="title">Cadastrar contato</h1>
+          <h1 ng-if="editing" class="title">Editar contato</h1>
+          <button class="button button-icon icon ion-close" ng-click="cancel()"></button>
+        </ion-header-bar>
+        <ion-content>
+          <div class="list">
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Nome</span>
+              <input type="text" ng-model="newContact.name" placeholder="">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Vínculo</span>
+              <input type="text" ng-model="newContact.link" placeholder="">
+            </label>
+            <label class="item item-input item-stacked-label">
+              <span class="input-label">Número de Telefone</span>
+              <input type="text" ng-model="newContact.number" placeholder="">
+            </label>
+          </div>
+          <div class="center-align">
+            <button class="button button-balanced" ng-click="save()">
+              Salvar
+            </button>
+          </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+  </ion-content>
+</ion-view>
+

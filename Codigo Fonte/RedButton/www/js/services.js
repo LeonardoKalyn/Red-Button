@@ -1,50 +1,163 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
-  // Might use a resource here that returns a JSON array
+.factory('SoundPlayer', function() {
+  return {
+    audio: null,
+    playAudio: function(sound){
+      this.audio = new Audio(sound);
+      this.audio.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+      }, false);
+      this.audio.play();
+    },
+    stopAudio: function(){
+      if (this.audio === null)
+        return;
+      this.audio.addEventListener('ended', function() {
+        this.pause();
+        this.currentTime = 0;
+      }, false);
+    }
+  }
+})
 
-  // Some fake testing data
-  var chats = [{
-    id: 0,
-    name: 'Ben Sparrow',
-    lastText: 'You on your way?',
-    face: 'img/ben.png'
-  }, {
-    id: 1,
-    name: 'Max Lynx',
-    lastText: 'Hey, it\'s me',
-    face: 'img/max.png'
-  }, {
-    id: 2,
-    name: 'Adam Bradleyson',
-    lastText: 'I should buy a boat',
-    face: 'img/adam.jpg'
-  }, {
-    id: 3,
-    name: 'Perry Governor',
-    lastText: 'Look at my mukluks!',
-    face: 'img/perry.png'
-  }, {
-    id: 4,
-    name: 'Mike Harrington',
-    lastText: 'This is wicked good ice cream.',
-    face: 'img/mike.png'
-  }];
+
+.factory('StorageInit', function() {
 
   return {
-    all: function() {
-      return chats;
-    },
-    remove: function(chat) {
-      chats.splice(chats.indexOf(chat), 1);
-    },
-    get: function(chatId) {
-      for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
-          return chats[i];
+    init: function() {
+      console.log("Init app storage data");
+      window.localStorage.initialized = true;
+      window.localStorage.patient = JSON.stringify({
+        name: "",
+        healthPlan: "",
+        planNumber: "",
+        bloodType: "",
+        donor: "false"
+      });
+      window.localStorage.contacts = JSON.stringify([]);
+      window.localStorage.config = JSON.stringify({
+        sound: "ambulance.mp3",
+        vibrate: true
+      });
+      window.localStorage.diseases = JSON.stringify([
+        {
+          name: "Alcoolismo",
+          checked: false
+        },
+        {
+          name: "Alzheimer",
+          checked: false
+        },
+        {
+          name: "Arritimias cardíacas",
+          checked: false
+        },
+        {
+          name: "Asma",
+          checked: false
+        },
+        {
+          name: "AVC",
+          checked: false
+        },
+        {
+          name: "Colesterol Alto",
+          checked: false
+        },
+        {
+          name: "Diabetes",
+          checked: false
+        },
+        {
+          name: "Hepatite Viral",
+          checked: false
+        },
+        {
+          name: "Hipertensão arterial",
+          checked: false
+        },
+        {
+          name: "HIV",
+          checked: false
+        },
+        {
+          name: "Insuficiência Renal Crônica",
+          checked: false
+        },
+        {
+          name: "Leucemia",
+          checked: false
         }
-      }
-      return null;
-    }
+
+      ]);
+      window.localStorage.alergies = JSON.stringify([
+        {
+          name: "Acaro",
+          checked: false
+        },
+        {
+          name: "Amendoim",
+          checked: false
+        },
+        {
+          name: "Camarão",
+          checked: false
+        },
+        {
+          name: "Canela",
+          checked: false
+        },
+        {
+          name: "Frutas Cítricas",
+          checked: false
+        },
+        {
+          name: "Frutos do Mar",
+          checked: false
+        },
+        {
+          name: "Glúten",
+          checked: false
+        },
+        {
+          name: "Leite",
+          checked: false
+        },
+        {
+          name: "Milho",
+          checked: false
+        },
+        {
+          name: "Ovo",
+          checked: false
+        },
+        {
+          name: "Peixe",
+          checked: false
+        },
+        {
+          name: "Picada de Abelha",
+          checked: false
+        },
+        {
+          name: "Pimenta",
+          checked: false
+        },
+        {
+          name: "Polen",
+          checked: false
+        },
+        {
+          name: "Rinite Alérgica",
+          checked: false
+        },
+        {
+          name: "Soja",
+          checked: false
+        }
+      ]);
+    },
   };
 });

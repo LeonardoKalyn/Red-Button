@@ -14,9 +14,13 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/ionic-platform-web-client/dist/ionic.io.bundle.min.js"></script>
+    <script src="js/ng-cordova.min.js"></script>
+
 
     <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+    <!-- Cordova is bootstrapped by ionic-platform-web-client, uncomment this if you remove ionic-platform-web-client... -->
+<!-- <script src="cordova.js"></script> -->
 
     <!-- your app's js -->
     <script src="js/app.js"></script>
@@ -33,27 +37,33 @@
         <br>
         <ul class="list">
           <li class="item">
-            <a class="button button-clear button-dark" href="">
+            <a class="button button-clear button-dark" ng-click="sidemenuClick('dashboard')">
+              <i class="ion-ios-circle-filled"></i>
+              Emergência
+            </a>
+          </li>
+          <li class="item">
+            <a class="button button-clear button-dark" ng-click="sidemenuClick('contacts')">
               <i class="ion-person-stalker"></i>
-              Contatos de Emergência
+              Contatos de Emerg&#xEA;ncia
             </a>
           </li>
           <li class="item">
-            <a class="button button-clear button-dark" href="">
+            <a class="button button-clear button-dark" ng-click="sidemenuClick('profile')">
               <i class="ion-information-circled"></i>
-              Informações do Paciente
+              Informa&#xE7;&#xF5;es do Paciente
             </a>
           </li>
           <li class="item">
-            <a class="button button-clear button-dark" href="">
+            <a class="button button-clear button-dark" ng-click="sidemenuClick('info')">
               <i class="ion-alert-circled"></i>
-              Alergias e Doenças
+              Alergias e Doen&#xE7;as
             </a>
           </li>
           <li class="item">
-            <a class="button button-clear button-dark" href="">
+            <a class="button button-clear button-dark" ng-click="sidemenuClick('config')">
               <i class="ion-gear-b"></i>
-              Configurações
+              Configura&#xE7;&#xF5;es
             </a>
           </li>
         </ul>

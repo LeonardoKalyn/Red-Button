@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
 
-.run(function($ionicPlatform) {
+angular.module('starter', ['ionic', 'ngCordova','ionic.service.core', 'starter.controllers', 'starter.services'])
+.run(function($ionicPlatform, $rootScope, $ionicSideMenuDelegate, $state) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,6 +21,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       StatusBar.styleDefault();
     }
   });
+
+  $rootScope.sidemenuClick = function(state){
+    $state.go(state);
+    $ionicSideMenuDelegate.toggleLeft();
+  }
+
+  $rootScope.sidemenuToggle = function(){
+    $ionicSideMenuDelegate.toggleLeft();
+  }
 })
 
 .config(function($stateProvider, $urlRouterProvider) {
@@ -39,6 +48,26 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
       url: '/dashboard',
       templateUrl: 'templates/dashboard.html',
       controller: 'DashCtrl'
+    })
+    .state('profile', {
+    url: '/profile',
+    templateUrl: 'templates/profile.html',
+    controller: 'ProfileCtrl'
+  })
+    .state('info', {
+    url: '/info',
+    templateUrl: 'templates/info.html',
+    controller: 'InfoCtrl'
+  })
+    .state('config', {
+      url: '/config',
+      templateUrl: 'templates/config.html',
+      controller: 'ConfigCtrl'
+    })
+    .state('contacts', {
+      url: '/contacts',
+      templateUrl: 'templates/contacts.html',
+      controller: 'ContactsCtrl'
     });
 
   // if none of the above states are matched, use this as the fallback

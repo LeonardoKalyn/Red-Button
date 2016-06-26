@@ -9,6 +9,7 @@
 
 .start-button{
   position: fixed;
+  margin-left: -15px;
   bottom: 10px;
 }
 
@@ -20,4 +21,13 @@
 
 .inner-vertical-align {
   margin: auto auto;
+}
+
+.title-image{
+  max-width: 100%;
+  height: auto;
+}
+
+.home-background{
+  background-color: #d32f2f;
 }

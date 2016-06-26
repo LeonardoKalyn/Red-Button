@@ -1,0 +1,25 @@
+<ion-view view-title="Config" class="padding">
+  <ion-content>
+    <div class="bar bar-header bar-assertive">
+      <button class="button button-icon icon ion-navicon light" ng-click="sidemenuToggle()"></button>
+      <h1 class="title">Red Button</h1>
+    </div>
+    <div class="bar bar-subheader bar-stable">
+      <h2 class="title">Configurações</h2>
+    </div>
+    <div style="padding-top: 85px;">
+      <label class="item item-input item-select">
+        <span class="input-label">Alarme</span>
+        <select ng-model="config.sound" ng-change="playAlert(config.sound)">
+          <option value="ambulance.mp3">Ambulancia</option>
+          <option value="ambulance-2.mp3">Ambulancia 2</option>
+          <option value="police.mp3">Policia</option>
+          <option value="none">Nenhum</option>
+        </select>
+      </label>
+      <ion-checkbox ng-model="config.vibrate" ng-click="vibrate(config.vibrate)">Vibrar</ion-checkbox>
+    </div>
+
+  </ion-content>
+</ion-view>
+
