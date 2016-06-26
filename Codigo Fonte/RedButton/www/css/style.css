@@ -1,1 +1,23 @@
 /* Empty. Add your own CSS if you like */
+.center-align {
+  text-align: center;
+}
+
+.right-align {
+  text-align: right;
+}
+
+.start-button{
+  position: fixed;
+  bottom: 10px;
+}
+
+.outer-vertical-align {
+  display: inline-flex;
+  height: 100%;
+  width: 100%;
+}
+
+.inner-vertical-align {
+  margin: auto auto;
+}
