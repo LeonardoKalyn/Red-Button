@@ -19,7 +19,7 @@
           <div class="row">
             <div class="col col-80">{{patient.planNumber}}</div>
             <div class="col col-20">
-              <button class="button button-small button-balanced icon" ng-click="makeCall(patient.planNumber)">
+              <button ng-if="patient.planNumber !== ''" class="button button-small button-balanced icon" ng-click="makeCall(patient.planNumber)">
               <i class="ion-ios-telephone"></i>
             </button></div>
           </div>
@@ -64,7 +64,7 @@
         </li>
       </ul>
       <div class="center-align">
-        <button ng-click="makeCall('190')" class="button button-positive">Ligar Para Emergência</button>
+        <button ng-click="makeCall('192')" class="button button-positive">Ligar Para Emergência</button>
       </div>
       <hr>
       <h4 class="center-align light">Doenças</h4>
