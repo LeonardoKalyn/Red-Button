@@ -18,6 +18,13 @@
         </select>
       </label>
       <ion-checkbox ng-model="config.vibrate" ng-click="vibrate(config.vibrate)">Vibrar</ion-checkbox>
+      <ion-checkbox ng-model="config.sendSMS">Enviar SMS no Modo de Emergência</ion-checkbox>
+      <br>
+      <div class="center-align">
+        <button class="button button-balanced" ng-click="save()">
+          Salvar
+        </button>
+      </div>
     </div>
 
   </ion-content>

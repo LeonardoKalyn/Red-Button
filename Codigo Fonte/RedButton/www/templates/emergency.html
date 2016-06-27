@@ -1,0 +1,96 @@
+<ion-view view-title="StartEmergency" class="dark-bg">
+  <ion-content>
+    <div class="bar bar-header bar-assertive">
+      <h1 class="title">EMERGÊNCIA</h1>
+    </div>
+    <div style="padding-top: 45px;">
+      <h4 class="center-align light">Informações</h4>
+      <div class="row row-center light">
+        <div class="col col-33 right-align bold">Nome</div>
+        <div class="col col-67">{{patient.name}}</div>
+      </div>
+      <div class="row row-center light">
+        <div class="col col-33 right-align bold">Nº do Plano de Saúde</div>
+        <div class="col col-67">{{patient.healthPlan}}</div>
+      </div>
+      <div class="row row-center light">
+        <div class="col col-33 right-align bold">Telefone do Plano de Saúde</div>
+        <div class="col col-67">
+          <div class="row">
+            <div class="col col-80">{{patient.planNumber}}</div>
+            <div class="col col-20">
+              <button class="button button-small button-balanced icon" ng-click="makeCall(patient.planNumber)">
+              <i class="ion-ios-telephone"></i>
+            </button></div>
+          </div>
+        </div>
+      </div>
+      <div class="row row-center light">
+        <div class="col col-33 right-align bold">Típo Sanguíneo</div>
+        <div class="col col-67">{{patient.bloodType}}</div>
+      </div>
+      <div class="row row-center light">
+        <div class="col col-33 right-align bold">Doador de Orgãos</div>
+        <div class="col col-67">
+          <span ng-if="patient.donor">Sim</span>
+          <span ng-if="!patient.donor">Não</span>
+        </div>
+      </div>
+      <hr>
+      <h4 class="center-align light">Contatos</h4>
+      <ul class="list">
+        <li ng-repeat="contact in contacts track by $index" class="item">
+          <div class="row row-center">
+            <div class="col col-25">
+              <h1>
+                <i class="ion-person"></i>
+              </h1>
+            </div>
+            <div class="col col-75">
+              <div class="row row-center">
+                <div class="col col-80">
+                  {{contact.name}} - {{contact.link}}
+                  <br>
+                  {{contact.number}}
+                </div>
+                <div class="col col-20">
+                  <button class="button button-balanced icon" ng-click="makeCall(contact.number)">
+                    <i class="ion-ios-telephone"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <div class="center-align">
+        <button ng-click="makeCall('190')" class="button button-positive">Ligar Para Emergência</button>
+      </div>
+      <hr>
+      <h4 class="center-align light">Doenças</h4>
+      <ul class="list">
+        <li ng-repeat="disease in diseases track by $index" class="item", ng-if="disease.checked">
+          {{disease.name}}
+        </li>
+      </ul>
+      <h5 class="center-align light" ng-if="!hasDisease">Nenhuma doença registrada</h5>
+      <hr>
+      <h4 class="center-align light">Alergias</h4>
+      <ul class="list">
+        <li ng-repeat="allergy in alergies track by $index" class="item", ng-if="allergy.checked">
+          {{allergy.name}}
+        </li>
+      </ul>
+      <h5 class="center-align light" ng-if="!hasAllergy">Nenhuma alergia registrada</h5>
+      <hr>
+      <div class="center-align">
+        <button ng-click="goTo('dashboard')" class="button button-assertive">
+          Cancelar Emergência
+        </button>
+      </div>
+    </div>
+
+
+  </ion-content>
+</ion-view>
+

@@ -1,8 +1,7 @@
 angular.module('starter.controllers', [])
 
 .controller('HomeCtrl', function($scope, SoundPlayer) {SoundPlayer.stopAudio();})
-.controller('DashCtrl', function($scope, $ionicSideMenuDelegate, $ionicPopup, StorageInit, SoundPlayer, $cordovaVibration) {
-  SoundPlayer.stopAudio();
+.controller('DashCtrl', function($scope, $ionicSideMenuDelegate, $ionicPopup, StorageInit) {
   if (!window.localStorage.initialized){
     $ionicPopup.show({
       template: 'Recomendamos que adicione suas informações e personalize o aplicativo imediatamente para maior eficiência do modo Emergência!',
@@ -19,16 +18,14 @@ angular.module('starter.controllers', [])
 
 })
 
-.controller('ProfileCtrl', function($scope, $state, SoundPlayer) {
-  SoundPlayer.stopAudio();
+.controller('ProfileCtrl', function($scope, $state) {
   $scope.patient = JSON.parse(window.localStorage.patient);
   $scope.save = function(){
     window.localStorage.patient = JSON.stringify($scope.patient);
     $state.go("dashboard");
   };
 })
-.controller('InfoCtrl', function($scope, $state, SoundPlayer) {
-  SoundPlayer.stopAudio();
+.controller('InfoCtrl', function($scope, $state) {
   $scope.diseases = JSON.parse(window.localStorage.diseases);
   $scope.alergies = JSON.parse(window.localStorage.alergies);
   $scope.save = function(){
@@ -38,10 +35,13 @@ angular.module('starter.controllers', [])
   };
 }).
 controller('ConfigCtrl', function($scope, $state, SoundPlayer, $cordovaVibration) {
-  SoundPlayer.stopAudio();
   $scope.config = JSON.parse(window.localStorage.config);
   $scope.alertPlaying = null;
+  $scope.timeout = undefined;
   $scope.playAlert = function(sound){
+    if ($scope.timeout){
+      clearTimeout($scope.timeout);
+    }
     if ($scope.alertPlaying !== null){
       $scope.alertPlaying.pause();
     }
@@ -50,6 +50,9 @@ controller('ConfigCtrl', function($scope, $state, SoundPlayer, $cordovaVibration
 
     $scope.alertPlaying = new Audio("sounds/" + sound);
     $scope.alertPlaying.play();
+    $scope.timeout = setTimeout(function(){
+      $scope.alertPlaying.pause();
+    }, 3000);
   };
   $scope.vibrate = function(toggle){
     if (toggle){
@@ -82,7 +85,6 @@ controller('ConfigCtrl', function($scope, $state, SoundPlayer, $cordovaVibration
     $scope.editing = false;
     $scope.modal.show();
   };
-  console.log($scope.contacts);
   $scope.cancel = function(){
     $scope.editing = false;
     $scope.modal.hide();
@@ -131,4 +133,86 @@ controller('ConfigCtrl', function($scope, $state, SoundPlayer, $cordovaVibration
     $scope.modal.show();
   };
 
-});
+})
+  .controller('StartEmergencyCtrl', function($scope, $state, $timeout, $cordovaVibration, SoundPlayer) {
+    SoundPlayer.stopAudio();
+  $scope.countdown = 5;
+  var interval = setInterval(function(){
+    if ($scope.$$destroyed){
+      clearInterval(interval);
+    }
+    $scope.countdown--;
+    $timeout(function(){});
+    if ($scope.countdown === 0){
+      clearInterval(interval);
+      $state.go("emergency");
+    }
+    document.addEventListener( "deviceready", function() {
+      $cordovaVibration.vibrate( 500 ); }, false );
+  }, 1000);
+})
+  .controller('EmergencyCtrl', function($scope, $state, SoundPlayer, $cordovaVibration, $cordovaGeolocation, $cordovaSms, $http) {
+    $scope.patient = JSON.parse(window.localStorage.patient);
+    $scope.config = JSON.parse(window.localStorage.config);
+    $scope.contacts = JSON.parse(window.localStorage.contacts);
+    $scope.diseases = JSON.parse(window.localStorage.diseases);
+    $scope.hasDisease = false;
+    for (var d = 0; d < $scope.diseases.length; d++){
+      if ($scope.diseases[d].checked){
+        $scope.hasDisease = true;
+        break;
+      }
+    }
+    $scope.alergies = JSON.parse(window.localStorage.alergies);
+    $scope.hasAllergy = false;
+    for (var d = 0; d < $scope.alergies.length; d++){
+      if ($scope.alergies[d].checked){
+        $scope.hasAllergy = true;
+        break;
+      }
+    }
+    if ($scope.config.sound !== "none"){
+      SoundPlayer.playAudio("sounds/" + $scope.config.sound);
+    }
+    var interval = setInterval(function(){
+      if ($scope.$$destroyed){
+        clearInterval(interval);
+      }
+      document.addEventListener( "deviceready", function() {
+        $cordovaVibration.vibrate( 500 ); }, false );
+    }, 1000);
+    $scope.makeCall = function(number){
+      window.plugins.CallNumber.callNumber(function(){
+
+      }, function(){
+
+      }, number)
+    };
+    var emergencyData = {
+      patient: $scope.patient,
+      allergies: $scope.alergies,
+      diseases: $scope.diseases,
+      contacts: $scope.contacts
+    };
+    document.addEventListener("deviceready", function () {
+      $cordovaGeolocation.getCurrentPosition({timeout : 30000, enableHighAccuracy: false}).
+        then(function(pos){
+        var lat = pos.coords.latitude;
+        var long = pos.coords.longitude;
+        emergencyData.coordinates = {
+          latitude: lat,
+          longitude: long
+        };
+        $http.post('http://192.168.0.10:3030/api/emergency/', emergencyData);
+        if ($scope.config.sendSMS){
+          for (var c = 0; c < $scope.contacts.length; c++){
+            var contact = $scope.contacts[c];
+            $cordovaSms.send(contact.number, $scope.patient.name + " está pedindo uma ajuda de emergência!\nLatitude: " + lat + "\nLongitude: " + long + "\nVer no mapa: https://www.google.com/maps/preview/@" + lat + "," + long + ",8z", {replaceLineBreaks: true});
+          }
+        }
+      },
+      function(error){
+        $http.post('http://192.168.0.10:3030/api/emergency/', emergencyData);
+      });
+    });
+  });

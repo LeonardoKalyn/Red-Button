@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 
 angular.module('starter', ['ionic', 'ngCordova','ionic.service.core', 'starter.controllers', 'starter.services'])
-.run(function($ionicPlatform, $rootScope, $ionicSideMenuDelegate, $state) {
+.run(function($ionicPlatform, $rootScope, $ionicSideMenuDelegate, $state, SoundPlayer) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -25,10 +25,17 @@ angular.module('starter', ['ionic', 'ngCordova','ionic.service.core', 'starter.c
   $rootScope.sidemenuClick = function(state){
     $state.go(state);
     $ionicSideMenuDelegate.toggleLeft();
+    SoundPlayer.stopAudio();
   }
 
   $rootScope.sidemenuToggle = function(){
     $ionicSideMenuDelegate.toggleLeft();
+
+  }
+
+  $rootScope.goTo = function(state){
+    $state.go(state);
+    SoundPlayer.stopAudio();
   }
 })
 
@@ -68,6 +75,18 @@ angular.module('starter', ['ionic', 'ngCordova','ionic.service.core', 'starter.c
       url: '/contacts',
       templateUrl: 'templates/contacts.html',
       controller: 'ContactsCtrl'
+    })
+    .state('startEmergency', {
+      url: '/startEmergency',
+      cache: false,
+      templateUrl: 'templates/startEmergency.html',
+      controller: 'StartEmergencyCtrl'
+    })
+    .state('emergency', {
+      url: '/emergency',
+      cache: false,
+      templateUrl: 'templates/emergency.html',
+      controller: 'EmergencyCtrl'
     });
 
   // if none of the above states are matched, use this as the fallback

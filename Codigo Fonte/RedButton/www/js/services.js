@@ -14,6 +14,7 @@ angular.module('starter.services', [])
     stopAudio: function(){
       if (this.audio === null)
         return;
+      this.audio.pause();
       this.audio.addEventListener('ended', function() {
         this.pause();
         this.currentTime = 0;
@@ -27,7 +28,6 @@ angular.module('starter.services', [])
 
   return {
     init: function() {
-      console.log("Init app storage data");
       window.localStorage.initialized = true;
       window.localStorage.patient = JSON.stringify({
         name: "",
@@ -39,7 +39,8 @@ angular.module('starter.services', [])
       window.localStorage.contacts = JSON.stringify([]);
       window.localStorage.config = JSON.stringify({
         sound: "ambulance.mp3",
-        vibrate: true
+        vibrate: true,
+        sendSMS: false
       });
       window.localStorage.diseases = JSON.stringify([
         {
