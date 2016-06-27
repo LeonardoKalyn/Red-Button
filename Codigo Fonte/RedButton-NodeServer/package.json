@@ -1,0 +1,37 @@
+{
+  "name": "RedButton",
+  "version": "0.1.0",
+  "description": "Server for aplication",
+  "main": "server.js",
+  "scripts": {
+    "test": "",
+    "start": "nodemon --harmony_proxies server.js",
+    "gulp": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": " https://github.com/LeonardoKalyn/Red-Button.git"
+  },
+  "author": "Leonardo Freitas",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "body-parser": "1.14.1",
+    "consign": "^0.1.2",
+    "cookie-parser": "1.4.0",
+    "express": "4.13.3",
+    "express-session": "1.11.3",
+    "helmet": "0.12.0",
+    "jade": "1.11.0",
+    "method-override": "2.3.5",
+    "mongo-sanitize": "1.0.0",
+    "mongoose": "3.8.31",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+
+  }
+}
